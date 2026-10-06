@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simulador Farmacológico</title>
+    <style>
+        :root {
+            --bg-base: #0f172a;
+            --panel-bg: #1e293b;
+            --text-main: #f8fafc;
+            --accent: #0ea5e9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+
+        body, html {
+            background-color: var(--bg-base);
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 100%; /* En móviles ocupa el 100% real, en PC se limita elegante */
+            height: 100%;
+            background-color: var(--bg-base);
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            body, html { background-color: #000; }
+            #app { max-width: 450px; box-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        }
+
+        header {
+            background-color: var(--panel-bg);
+            border-bottom: 2px solid #334155;
+            flex-shrink: 0; 
+        }
+
+        h1 { font-size: 1rem; padding: 8px 12px; color: var(--accent); text-align: center; }
+
+        #tabs { display: flex; overflow-x: auto; background-color: var(--panel-bg); }
+        #tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            background: none; border: none; color: #94a3b8;
+            padding: 10px 12px; font-size: 0.85rem; white-space: nowrap;
+            border-bottom: 3px solid transparent; cursor: pointer; transition: 0.2s;
+            flex-grow: 1; text-align: center;
+        }
+        .tab.active { color: var(--text-main); border-bottom: 3px solid var(--accent); font-weight: bold; }
+
+        #simulation-container {
+            flex-grow: 1; 
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        /* Modal de Preguntas Adaptado */
+        #quiz-modal {
+            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(15,23,42,0.95); z-index: 100; flex-direction: column; 
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-content {
+            background: #1e293b; padding: 20px; border-radius: 12px; border: 2px solid #0ea5e9; 
+            max-width: 320px; width: 100%; text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main id="app">
+        <header id="top-bar">
+            <h1>Simulador: Cascada Pleiotrópica</h1>
+            <nav id="tabs" class="tabs">
+                <button class="tab active" data-target="molecular">1. Molecular</button>
+                <button class="tab" data-target="celular">2. Celular</button>
+                <button class="tab" data-target="tisular">3. Tisular</button>
+                <button class="tab" data-target="sistemico">4. Sistémico</button>
+            </nav>
+        </header>
+
+        <section id="simulation-container">
+            <canvas id="sim-canvas"></canvas>
+        </section>
+
+        <!-- Ventana Emergente de Preguntas (Escape Room Clínico) -->
+        <div id="quiz-modal">
+            <div class="modal-content">
+                <h2 style="color: #0ea5e9; margin-bottom: 15px; font-size: 1.2rem;">Cerradura Clínica</h2>
+                <p id="quiz-question" style="margin-bottom: 20px; font-size: 1rem; color: #f8fafc;"></p>
+                <div id="quiz-options" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                <p id="quiz-feedback" style="margin-top: 15px; font-weight: bold; min-height: 20px;"></p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="src/core/engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+:root {
+    --bg-base: #0f172a;
+    --panel-bg: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #0ea5e9;
+    --border: #334155;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden; /* Vital para web apps móviles */
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+}
+
+h1 {
+    font-size: 1.1rem;
+    padding: 12px 16px;
+    color: var(--accent);
+}
+
+#tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* Oculta scrollbar en Firefox */
+}
+#tabs::-webkit-scrollbar { display: none; } /* Oculta scrollbar en Chrome/Safari */
+
+.tab {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s;
+}
+
+.tab.active {
+    color: var(--text-main);
+    border-bottom: 2px solid var(--accent);
+    font-weight: bold;
+}
+
+#simulation-container {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: #000;
+}
+
+#hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none; /* Los toques pasan a través del HUD hacia el canvas */
+}
+
+.metric {
+    background: rgba(15, 23, 42, 0.8);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    border: 1px solid var(--border);
+}
+.metric span { font-weight: bold; font-size: 1rem; }
+
+canvas {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    display: block;
+}
+
+footer {
+    background-color: var(--panel-bg);
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    z-index: 10;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+input[type=range] {
+    width: 100%;
+    accent-color: var(--accent);
+}
+#mission-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.3s;
+}
+
+#mission-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mission-card {
+    background: var(--panel-bg);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.mission-card h2 { color: var(--accent); margin-bottom: 12px; }
+.mission-card p { color: var(--text-main); margin-bottom: 20px; font-size: 0.95rem; }
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.puzzle-btn {
+    background: #334155;
+    border: 1px solid var(--border);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.puzzle-btn:hover { background: #475569; }
+.puzzle-btn.correct { background: #16a34a; border-color: #15803d; }
+.puzzle-btn.wrong { background: #dc2626; border-color: #b91c1c; }
+.feedback-text { margin-top: 15px; font-weight: bold; min-height: 20px; }
