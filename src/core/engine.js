@@ -64,13 +64,13 @@ class Engine {
             let questionData = {};
             if (nivel === 'molecular') {
                 questionData = {
-                    q: "Las estatinas catalizan el paso limitante de la biosíntesis del colesterol al inhibir competitivamente a la enzima:",
+                    q: "Las estatinas inhiben competitivamente el paso de la biosíntesis al unirse a qué enzima:",
                     opts: [{t:"SREBP", c:false}, {t:"HMG-CoA reductasa", c:true}, {t:"eNOS", c:false}]
                 };
             } else if (nivel === 'celular') {
                 questionData = {
                     q: "Al bajar el colesterol, este factor de transcripción viaja al núcleo para sobreexpresar el gen del receptor de LDL (LDLR):",
-                    opts: [{t:"NF-κB", c:false}, {t:"Proteína Rho", c:false}, {t:"SREBP-1", c:true}]
+                    opts: [{t:"NF-κB", c:false}, {t:"Proteína Rho", c:false}, {t:"SREBP-2", c:true}]
                 };
             } else if (nivel === 'tisular') {
                 questionData = {
