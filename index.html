@@ -106,7 +106,20 @@
                 Continuar ➔
             </button>
         </section>
-
+        <div id="intro-modal" style="display: flex; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.95); z-index: 200; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+            <div class="modal-content" style="max-width: 350px; text-align: left;">
+                <h2 style="color: #0ea5e9; margin-bottom: 15px; font-size: 1.4rem; text-align: center;">🏥 Caso Clínico</h2>
+                <p style="margin-bottom: 15px; font-size: 1rem; color: #f8fafc; line-height: 1.5;">
+                    Paciente con <strong>alto riesgo cardiovascular</strong> presenta placa inestable, LDL elevado y flujo restringido.
+                </p>
+                <p style="margin-bottom: 25px; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;">
+                    <strong>Tu objetivo:</strong> Aplicar la estatina y replicar su mecanismo de acción paso a paso en los 4 niveles para estabilizar al paciente.
+                </p>
+                <button id="start-btn" style="padding: 14px; background: #10b981; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                    Comenzar Misión
+                </button>
+            </div>
+        </div>
         <!-- Ventana Emergente de Preguntas (Escape Room Clínico) -->
         <div id="quiz-modal">
             <div class="modal-content">

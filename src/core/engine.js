@@ -50,6 +50,14 @@ class Engine {
                 if (state.interactives.srebp) state.interactives.srebp.isDragging = false;
             });
         });
+        const startBtn = document.getElementById('start-btn');
+        const introModal = document.getElementById('intro-modal');
+        if (startBtn && introModal) {
+            startBtn.addEventListener('click', () => {
+                introModal.style.display = 'none'; // Oculta la intro
+                state.introSeen = true;            // Activa el juego
+            });
+        }
     }
 
     update(deltaTime) {
@@ -187,7 +195,7 @@ class Engine {
             }
         }
         
-        else if (state.currentTab === 'sistemico') {
+        else if (state.currentTab === 'sistemico' && state.introSeen) {
             // Lanzar el quiz al entrar a la pestaña si no está desbloqueado
             if (!state.unlocked.sistemico) {
                 triggerQuiz('sistemico');

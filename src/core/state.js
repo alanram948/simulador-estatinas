@@ -1,6 +1,7 @@
 export const state = {
     currentTab: 'sistemico', 
     quizActive: false, 
+    introSeen: false,
 
     unlocked: {
         molecular: false, celular: false, tisular: false, sistemico: false
