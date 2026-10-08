@@ -14,12 +14,24 @@ class Engine {
         this.initUI();
     }
 
+    
     resize() {
         const container = document.getElementById('simulation-container');
         if (container) {
             const rect = container.getBoundingClientRect();
-            this.canvas.width = rect.width;
-            this.canvas.height = rect.height;
+            // Obtener la densidad de píxeles del dispositivo (Retina/HD)
+            const dpr = window.devicePixelRatio || 1; 
+            
+            // Asignar el tamaño real HD al canvas interno
+            this.canvas.width = rect.width * dpr;
+            this.canvas.height = rect.height * dpr;
+            
+            // Asignar el tamaño visual lógico por CSS
+            this.canvas.style.width = `${rect.width}px`;
+            this.canvas.style.height = `${rect.height}px`;
+            
+            // Escalar el contexto para que nuestros dibujos no queden pequeños
+            this.ctx.scale(dpr, dpr);
         }
     }
 
@@ -180,6 +192,56 @@ class Engine {
             if (!state.unlocked.sistemico) {
                 triggerQuiz('sistemico');
             }
+        }
+        if (state.currentTab === 'sistemico') {
+            // Solo salta si ya resolvieron el nivel anterior
+            if (state.unlocked.tisular && !state.unlocked.sistemico) {
+                triggerQuiz('sistemico');
+            }
+        }
+        const nextBtn = document.getElementById('next-level-btn');
+        let showNext = false;
+        let targetTab = '';
+        let btnText = '';
+
+        // Variables para saber qué ya completó el alumno
+        const isMolecularDone = statin.isBound;
+        const isCelularDone = srebp.inNucleus;
+        const isTisularDone = !state.tisular.macrophages.some(m => m.active) && eNos.active;
+
+        // Si estamos en la pantalla SISTÉMICA (Macro)
+        if (state.currentTab === 'sistemico') {
+            if (!isMolecularDone) {
+                showNext = true; btnText = "Paso 1: Ir a Nivel Molecular ➔"; targetTab = 'molecular';
+            } else if (isMolecularDone && !isCelularDone) {
+                showNext = true; btnText = "Paso 2: Ir a Nivel Celular ➔"; targetTab = 'celular';
+            } else if (isCelularDone && !isTisularDone) {
+                showNext = true; btnText = "Paso 3: Ir a Nivel Tisular ➔"; targetTab = 'tisular';
+            } else {
+                showNext = false; // Ya terminó todo
+            }
+        } 
+        // Si acaba de terminar una acción MICRO, lo mandamos a ver el resultado
+        else if (state.currentTab === 'molecular' && isMolecularDone && !isCelularDone) {
+            showNext = true; btnText = "Ver Efecto Sistémico ➔"; targetTab = 'sistemico';
+        } 
+        else if (state.currentTab === 'celular' && isCelularDone && !isTisularDone) {
+            showNext = true; btnText = "Ver Efecto Sistémico ➔"; targetTab = 'sistemico';
+        } 
+        else if (state.currentTab === 'tisular' && isTisularDone) {
+            showNext = true; btnText = "Ver Resultado Final ➔"; targetTab = 'sistemico';
+        }
+
+        // Mostrar u ocultar el botón dinámicamente
+        if (showNext && !state.quizActive) { 
+            nextBtn.style.display = 'block';
+            nextBtn.innerText = btnText;
+            nextBtn.onclick = () => {
+                document.querySelector(`.tab[data-target="${targetTab}"]`).click();
+                nextBtn.style.display = 'none';
+            };
+        } else {
+            nextBtn.style.display = 'none';
         }
 
         // ==========================================

@@ -91,15 +91,20 @@
         <header id="top-bar">
             <h1>Simulador: Cascada Pleiotrópica</h1>
             <nav id="tabs" class="tabs">
-                <button class="tab active" data-target="molecular">1. Molecular</button>
+                <button class="tab" data-target="molecular">1. Molecular</button>
                 <button class="tab" data-target="celular">2. Celular</button>
                 <button class="tab" data-target="tisular">3. Tisular</button>
-                <button class="tab" data-target="sistemico">4. Sistémico</button>
+                <button class="tab active" data-target="sistemico">4. Sistémico</button>
             </nav>
         </header>
 
         <section id="simulation-container">
             <canvas id="sim-canvas"></canvas>
+            
+            <!-- NUEVO: Botón Flotante para saltar de nivel -->
+            <button id="next-level-btn" style="display: none; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-size: 1rem; cursor: pointer; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,0.5); white-space: nowrap;">
+                Continuar ➔
+            </button>
         </section>
 
         <!-- Ventana Emergente de Preguntas (Escape Room Clínico) -->

@@ -1,5 +1,5 @@
 export const state = {
-    currentTab: 'molecular', 
+    currentTab: 'sistemico', 
     quizActive: false, 
 
     unlocked: {
@@ -7,14 +7,15 @@ export const state = {
     },
     
     interactives: {
-        // Coordenadas centradas para el nuevo diseño
-        statin: { x: 80, y: 220, radius: 25, isDragging: false, isBound: false },
-        enzymeHmgCoa: { x: 280, y: 220, radius: 50 },
+        // Subimos las moléculas a la coordenada Y: 180 (antes 220)
+        statin: { x: 80, y: 180, radius: 25, isDragging: false, isBound: false },
+        enzymeHmgCoa: { x: 280, y: 180, radius: 50 },
         
-        srebp: { x: 80, y: 320, radius: 25, isDragging: false, inNucleus: false },
-        nucleus: { x: 280, y: 320, radius: 60 },
+        // Damos más espacio al núcleo y al SREBP
+        srebp: { x: 80, y: 260, radius: 25, isDragging: false, inNucleus: false },
+        nucleus: { x: 280, y: 260, radius: 60 },
         
-        eNosNode: { x: 225, y: 350, radius: 30, active: false }
+        eNosNode: { x: 225, y: 310, radius: 30, active: false }
     },
     
     molecular: { hmgCoaActivity: 100, mevalonate: 100, isoprenoids: 100 },
