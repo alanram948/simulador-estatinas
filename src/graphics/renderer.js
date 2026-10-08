@@ -12,13 +12,26 @@ export const renderer = {
         this.noParticles = [];
     },
 
-    drawInstructionBar(titulo, subtitulo) {
+    drawInstructionBar(titulo, subtitulo, glowColor = null) {
         this.ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
         this.ctx.fillRect(0, 0, this.width, 70);
-        this.ctx.fillStyle = '#fef08a'; 
+
+        // Si mandamos un color, activamos el efecto Glow palpitante
+        if (glowColor) {
+            const glow = 5 + Math.sin(Date.now() * 0.005) * 8; // Efecto de palpitación
+            this.ctx.shadowColor = glowColor;
+            this.ctx.shadowBlur = glow;
+            this.ctx.fillStyle = glowColor; 
+        } else {
+            this.ctx.fillStyle = '#fef08a'; // Amarillo normal sin brillo
+        }
+
         this.ctx.font = '16px bold system-ui';
         this.ctx.textAlign = 'center';
         this.ctx.fillText(titulo, this.width / 2, 30);
+        
+        // Apagamos el brillo para el subtítulo para que siga siendo legible
+        this.ctx.shadowBlur = 0; 
         this.ctx.fillStyle = '#cbd5e1'; 
         this.ctx.font = '13px system-ui';
         this.ctx.fillText(subtitulo, this.width / 2, 50);
@@ -150,16 +163,16 @@ export const renderer = {
         const isCelularDone = state.interactives.srebp.inNucleus;
         const isTisularDone = !state.tisular.macrophages.some(m => m.active) && state.interactives.eNosNode.active;
 
+        // Mandamos llamar la barra con el texto y su color de GLOW respectivo
         if (isTisularDone) {
-            this.drawInstructionBar("Éxito Clínico", "Efectos pleiotrópicos activos: Placa estabilizada");
+            this.drawInstructionBar("Éxito Clínico: Paciente Estable", "Efectos pleiotrópicos activos: Placa estabilizada", '#4ade80'); // Glow Verde
         } else if (isCelularDone) {
-            this.drawInstructionBar("Reacción Plasmática", "Los receptores LDLR están limpiando el colesterol de la sangre");
+            this.drawInstructionBar("Endocitosis Activa", "Los receptores LDLR están limpiando el colesterol plasmático", '#38bdf8'); // Glow Azul
         } else if (isMolecularDone) {
-            this.drawInstructionBar("Reacción Plasmática", "La síntesis hepática se detuvo. Isoprenoides a la baja.");
+            this.drawInstructionBar("Síntesis Hepática Detenida", "Isoprenoides a la baja. Reacción compensatoria inminente.", '#fde047'); // Glow Amarillo
         } else {
-            this.drawInstructionBar("Estado Inicial (Crítico)", "Placa inestable, LDL elevado y flujo vascular restringido");
+            this.drawInstructionBar("Estado Inicial (Crítico)", "Placa inestable, LDL elevado y flujo vascular restringido"); // Sin Glow
         }
-
         const radius = 40 + (state.tisular.nitricOxide * 0.4); 
         this.ctx.fillStyle = '#7f1d1d'; this.ctx.fillRect(0, 100, width, radius * 2);
 
