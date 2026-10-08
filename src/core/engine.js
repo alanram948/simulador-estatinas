@@ -52,11 +52,17 @@ class Engine {
         });
         const startBtn = document.getElementById('start-btn');
         const introModal = document.getElementById('intro-modal');
+        
         if (startBtn && introModal) {
-            startBtn.addEventListener('click', () => {
-                introModal.style.display = 'none'; // Oculta la intro
-                state.introSeen = true;            // Activa el juego
-            });
+            const iniciarMision = (e) => {
+                if (e && e.cancelable) e.preventDefault(); // Obliga al celular a registrar el toque de inmediato
+                introModal.style.display = 'none'; 
+                state.introSeen = true;            
+            };
+            
+            // Cubrimos tanto el ratón (PC) como el dedo (Móvil)
+            startBtn.addEventListener('click', iniciarMision);
+            startBtn.addEventListener('touchstart', iniciarMision, { passive: false });
         }
     }
 
